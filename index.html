@@ -75,7 +75,7 @@
 	<![endif]-->
 	<script>
 		function parseSecond(val) {
-			var result = "Not found",
+			var result = "1",
 			tmp = [];
 			var items = location.search.substr(1).split("&");
 			for (var index = 0; index < items.length; index++) {
@@ -101,7 +101,7 @@
 			$.each( data, function( key, val ) {
 
 				items.push( {
-					twitter: val["gsx$whatisyourtwitterhandle"]["$t"],
+					twitter: val["gsx$twitterhandle"]["$t"],
 					type: val["gsx$tickettype"]["$t"],
 					firstname: val["gsx$firstname"]["$t"],
 					lastname: val["gsx$lastname"]["$t"]
