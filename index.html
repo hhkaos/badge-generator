@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset=utf-8 />
-	<title></title>
+	<meta charset="utf-8" />
+	<title>Badge Generator</title>
 	
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-	<script src="./jsrender.js"></script>
+	<script src="js/jsrender.js"></script>
 	<style type="text/css">
 
 		body{
@@ -72,71 +72,54 @@
 	</style>
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<script>
-			function parseSecond(val) {
-				var result = "Not found",
-				tmp = [];
-				var items = location.search.substr(1).split("&");
-				for (var index = 0; index < items.length; index++) {
-					tmp = items[index].split("=");
-					if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
-				}
-				return result;
+	<![endif]-->
+	<script>
+		function parseSecond(val) {
+			var result = "Not found",
+			tmp = [];
+			var items = location.search.substr(1).split("&");
+			for (var index = 0; index < items.length; index++) {
+				tmp = items[index].split("=");
+				if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
 			}
-	//?id=1bO7zQ5UVAsOhrkGzPza-t_y8pcNRWuQiAYPyRCdc3R8&tab=1
-	var api_url = "https://spreadsheets.google.com/feeds/list/" + parseSecond("id") + "/" + parseSecond("tab") + "/public/values?alt=json-in-script&callback=loadBadges";
-	console.log("API:", api_url);
-	$.ajax({
-		url: api_url,
-
-    // The name of the callback parameter, as specified by the YQL service
-    jsonp: "loadBadges",
-
-    // Tell jQuery we're expecting JSONP
-    dataType: "jsonp",
-
-    // Tell YQL what we want and that we want JSON
-    data: {
-    	format: "json"
-    },
-
-    // Work with the response
-    success: function( response ) {}
-  });
+			return result;
+		}
 	
-	function loadBadges(data){
-		console.log(data)
-		var items = [];
+		var api_url = "https://spreadsheets.google.com/feeds/list/" + parseSecond("id") + "/" + parseSecond("tab") + "/public/values?alt=json-in-script&callback=loadBadges";
 
-		data = data.feed.entry;
-		$.each( data, function( key, val ) {
-//debugger;
-items.push( {
-	twitter: val["gsx$whatisyourtwitterhandle"]["$t"],
-	type: val["gsx$tickettype"]["$t"],
-	firstname: val["gsx$firstname"]["$t"],
-	lastname: val["gsx$lastname"]["$t"]
-});
-})
-		console.log(items);
-	  //$( "#list").html(items.join( "" ));
+		$.ajax({
+			url: api_url,
+	    jsonp: "loadBadges",
+	    dataType: "jsonp",
+	    data: {format: "json"}
+	  });
+		
+		function loadBadges(data){
+			var items = [], template, htmlOutpu;
 
-	  var template = $.templates("#theTmpl");
+			data = data.feed.entry;
+			$.each( data, function( key, val ) {
 
-	  var htmlOutput = template.render(items);
+				items.push( {
+					twitter: val["gsx$whatisyourtwitterhandle"]["$t"],
+					type: val["gsx$tickettype"]["$t"],
+					firstname: val["gsx$firstname"]["$t"],
+					lastname: val["gsx$lastname"]["$t"]
+				});
+			})
 
-	  $("#list").html(htmlOutput);
-	}
+		  template = $.templates("#badge");
+		  htmlOutput = template.render(items);
+
+		  $("#list").html(htmlOutput);
+		}
 	
-</script>
+	</script>
 </head>
 <body>
-	<ul id="list">
+	<ul id="list"></ul>
 
-	</ul>
-
-	<script id="theTmpl" type="text/x-jsrender">
+	<script id="badge" type="text/x-jsrender">
 		<li>
 			<div class="top">
 				<img src="logo_cmyk_white2.png">
