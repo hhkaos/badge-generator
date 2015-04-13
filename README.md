@@ -1,5 +1,5 @@
 # badge-generator
-I refuse to paid for conferencebadge.com so I created this script that uses an spreadsheet to generate the same badges.
+I refuse to pay for [conferencebadge.com](conferencebadge.com) so I created this script that uses an spreadsheet to generate the same badges for free.
 
 ## How it works?
 
