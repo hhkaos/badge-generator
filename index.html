@@ -112,6 +112,32 @@
 		  htmlOutput = template.render(items);
 
 		  $("#list").html(htmlOutput);
+		  var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo;
+		  bgHeader = parseSecond("bgHeader");
+	  	bgFooter = parseSecond("bgFooter");
+	  	headerTxtColor = parseSecond("headerTxtColor");
+	  	footerTxtColor = parseSecond("footerTxtColor");
+	  	logo = parseSecond("logo");
+
+	  	if(bgHeader != 1){
+	  		$(".top").css("background-color", "#" + bgHeader);
+	  	}
+
+	  	if(headerTxtColor != 1){
+	  		$(".top").css("color", "#" + headerTxtColor);
+	  	}
+	  	
+	  	if(bgFooter != 1){
+	  		$(".bottom").css("background-color", "#" + bgFooter);
+	  	}
+
+	  	if(footerTxtColor != 1){
+	  		$(".bottom").css("color", "#" + headerTxtColor);
+	  	}
+
+	  	if(logo != 1){
+	  		$(".logo").attr("src", logo);
+	  	}
 		}
 	
 	</script>
@@ -122,7 +148,7 @@
 	<script id="badge" type="text/x-jsrender">
 		<li>
 			<div class="top">
-				<img src="img/logo.png">
+				<img src="img/logo.png" class="logo">
 				<div class="right">{{:type}}</div>
 			</div>
 			<p class="name">
