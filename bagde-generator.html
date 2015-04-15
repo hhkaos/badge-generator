@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Badge Generator</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="js/jsrender.js"></script>
+	<link href="css/main.css" rel="stylesheet" />
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script>
+		function parseSecond(val) {
+			var result = "1",
+			tmp = [];
+			var items = location.search.substr(1).split("&");
+			for (var index = 0; index < items.length; index++) {
+				tmp = items[index].split("=");
+				if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+			}
+			return result;
+		}
+	
+		var api_url = "https://spreadsheets.google.com/feeds/list/" + parseSecond("id") + "/" + parseSecond("tab") + "/public/values?alt=json-in-script&callback=loadBadges";
+
+		$.ajax({
+			url: api_url,
+	    jsonp: "loadBadges",
+	    dataType: "jsonp",
+	    data: {format: "json"}
+	  });
+		
+		function loadBadges(data){
+			var items = [], template, htmlOutpu;
+
+			data = data.feed.entry;
+			$.each( data, function( key, val ) {
+
+				items.push( {
+					twitter: val["gsx$twitterhandle"]["$t"],
+					type: val["gsx$tickettype"]["$t"],
+					firstname: val["gsx$firstname"]["$t"],
+					lastname: val["gsx$lastname"]["$t"]
+				});
+			})
+
+		  template = $.templates("#badge");
+		  htmlOutput = template.render(items);
+
+		  $("#list").html(htmlOutput);
+		  var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo;
+		  bgHeader = parseSecond("bgHeader");
+	  	bgFooter = parseSecond("bgFooter");
+	  	headerTxtColor = parseSecond("headerTxtColor");
+	  	footerTxtColor = parseSecond("footerTxtColor");
+	  	logo = parseSecond("logo");
+
+	  	if(bgHeader != 1){
+	  		$(".top").css("background-color", "#" + bgHeader);
+	  	}
+
+	  	if(headerTxtColor != 1){
+	  		$(".top").css("color", "#" + headerTxtColor);
+	  	}
+	  	
+	  	if(bgFooter != 1){
+	  		$(".bottom").css("background-color", "#" + bgFooter);
+	  	}
+
+	  	if(footerTxtColor != 1){
+	  		$(".bottom").css("color", "#" + footerTxtColor);
+	  	}
+
+	  	if(logo != 1 && logo != ""){
+	  		$(".logo").attr("src", logo);
+	  	}
+		}
+	
+	</script>
+</head>
+<body>
+	<ul id="list"></ul>
+
+	<script id="badge" type="text/x-jsrender">
+		<li>
+			<div class="top">
+				<img src="img/logo.png" class="logo">
+				<div class="right">{{:type}}</div>
+			</div>
+			<p class="name">
+				<span class="firstname">{{:firstname}}</span>
+				<span class="lastname">{{:lastname}}</span>
+			</p>
+			<div class="bottom">
+				<div class="right">{{:twitter}}</div>
+			</div>
+		</li>
+	</script>
+</body>
+</html>
