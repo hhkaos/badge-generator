@@ -50,11 +50,13 @@
 		  htmlOutput = template.render(items);
 
 		  $("#list").html(htmlOutput);
-		  var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo;
+		  var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo, width, height;
 		  bgHeader = parseSecond("bgHeader");
 	  	bgFooter = parseSecond("bgFooter");
 	  	headerTxtColor = parseSecond("headerTxtColor");
 	  	footerTxtColor = parseSecond("footerTxtColor");
+	  	width = parseSecond("width");
+	  	height = parseSecond("height");
 	  	logo = parseSecond("logo");
 
 	  	if(bgHeader != 1){
@@ -72,7 +74,12 @@
 	  	if(footerTxtColor != 1){
 	  		$(".bottom").css("color", "#" + footerTxtColor);
 	  	}
-
+			if(width != 1){
+				$(".table").css("width",width+"cm");
+			}
+			if(height != 1){
+				$(".table").css("height",height+"cm");
+			}
 	  	if(logo != 1 && logo != ""){
 	  		$(".logo").attr("src", logo);
 	  	}
@@ -85,17 +92,23 @@
 
 	<script id="badge" type="text/x-jsrender">
 		<li>
-			<div class="top">
-				<img src="img/logo.png" class="logo">
-				<div class="right">{{:type}}</div>
-			</div>
-			<p class="name">
-				<span class="firstname">{{:firstname}}</span>
-				<span class="lastname">{{:lastname}}</span>
-			</p>
-			<div class="bottom">
-				<div class="right">{{:twitter}}</div>
-			</div>
+			<div class="table">
+				<div class="top table-row">
+					<div class="table-cell">
+						<img src="img/logo.png" class="logo">
+						<div class="type">{{:type}}</div>
+					</div>
+				</div>
+				<div class="name table-row">
+					<div class="table-cell">
+						<span class="firstname">{{:firstname}}</span>
+						<span class="lastname">{{:lastname}}</span>
+					</div>
+				</div>
+				<div class="bottom table-row">
+					<div class="table-cell" style="text-align:right">{{:twitter}}</div>
+				</div>
+			</script>
 		</li>
 	</script>
 </body>

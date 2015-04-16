@@ -27,6 +27,12 @@ $(function() {
         
         $(this).attr("href","bagde-generator.html?"+params);
     });
+    $("#width").change(function(){
+        $(".table").css("width",$(this).val()+"cm");
+    });
+    $("#height").change(function(){
+        $(".table").css("height",$(this).val()+"cm");
+    });
 
 
 });
