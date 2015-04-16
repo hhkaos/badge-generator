@@ -10,6 +10,9 @@ $(function() {
 
             if(part == "bgHeader" || part == "bgFooter"){
                 $("."+part).css("background-color", color);
+                if(part == "bgFooter"){
+                    $(".lastname").css("color", color);
+                }
             }else{
                 $("."+part).css("color", color);
             }
