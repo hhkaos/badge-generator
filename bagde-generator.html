@@ -10,107 +10,127 @@
 	<link href="css/main.css" rel="stylesheet" />
 	<!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<script>
-		function parseSecond(val) {
-			var result = "1",
-			tmp = [];
-			var items = location.search.substr(1).split("&");
-			for (var index = 0; index < items.length; index++) {
-				tmp = items[index].split("=");
-				if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+		<![endif]-->
+		<script>
+			function parseSecond(val) {
+				var result = "1",
+				tmp = [];
+				var items = location.search.substr(1).split("&");
+				for (var index = 0; index < items.length; index++) {
+					tmp = items[index].split("=");
+					if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+				}
+				return result;
 			}
-			return result;
-		}
-	
-		var api_url = "https://spreadsheets.google.com/feeds/list/" + parseSecond("id") + "/" + parseSecond("tab") + "/public/values?alt=json-in-script&callback=loadBadges";
+			
+			var api_url = "https://spreadsheets.google.com/feeds/list/" + parseSecond("id") + "/" + parseSecond("tab") + "/public/values?alt=json-in-script&callback=loadBadges";
 
-		$.ajax({
-			url: api_url,
-	    jsonp: "loadBadges",
-	    dataType: "jsonp",
-	    data: {format: "json"}
-	  });
-		
-		function loadBadges(data){
-			var items = [], template, htmlOutpu;
+			$.ajax({
+				url: api_url,
+				jsonp: "loadBadges",
+				dataType: "jsonp",
+				data: {format: "json"}
+			});
+			
+			function loadBadges(data){
+				var items = [], template, htmlOutpu;
 
-			data = data.feed.entry;
-			$.each( data, function( key, val ) {
+				data = data.feed.entry;
+				$.each( data, function( key, val ) {
 
-				items.push( {
-					twitter: val["gsx$twitterhandle"]["$t"],
-					type: val["gsx$tickettype"]["$t"],
-					firstname: val["gsx$firstname"]["$t"],
-					lastname: val["gsx$lastname"]["$t"]
-				});
-			})
+					items.push( {
+						twitter: val["gsx$twitterhandle"]["$t"],
+						type: val["gsx$tickettype"]["$t"],
+						firstname: val["gsx$firstname"]["$t"],
+						lastname: val["gsx$lastname"]["$t"]
+					});
+				})
 
-		  template = $.templates("#badge");
-		  htmlOutput = template.render(items);
+				template = $.templates("#badge");
+				htmlOutput = template.render(items);
 
-		  $("#list").html(htmlOutput);
-		  var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo, width, height;
-		  bgHeader = parseSecond("bgHeader");
-	  	bgFooter = parseSecond("bgFooter");
-	  	headerTxtColor = parseSecond("headerTxtColor");
-	  	footerTxtColor = parseSecond("footerTxtColor");
-	  	width = parseSecond("width");
-	  	height = parseSecond("height");
-	  	logo = parseSecond("logo");
+				$("#list").html(htmlOutput);
+				
+				var theme = parseSecond("theme");
+				var bgHeader, bgFooter, headerTxtColor, footerTxtColor, logo, width, height;
 
-	  	if(bgHeader != 1){
-	  		$(".top").css("background-color", "#" + bgHeader);
-	  	}
+				if(theme=="theme1" || theme == 1){
+					
+					bgHeader = parseSecond("bgHeader");
+					bgFooter = parseSecond("bgFooter");
+					headerTxtColor = parseSecond("headerTxtColor");
+					footerTxtColor = parseSecond("footerTxtColor");
 
-	  	if(headerTxtColor != 1){
-	  		$(".top").css("color", "#" + headerTxtColor);
-	  	}
-	  	
-	  	if(bgFooter != 1){
-	  		$(".bottom").css("background-color", "#" + bgFooter);
-	  		$(".lastname").css("color","#" + bgFooter);
-	  	}
+					if(bgHeader != 1){
+						$(".top").css("background-color", "#" + bgHeader);
+					}
 
-	  	if(footerTxtColor != 1){
-	  		$(".bottom").css("color", "#" + footerTxtColor);
-	  	}
-			if(width != 1){
-				$(".table").css("width",width+"cm");
+					if(headerTxtColor != 1){
+						$(".top").css("color", "#" + headerTxtColor);
+					}
+					
+					if(bgFooter != 1){
+						$(".bottom").css("background-color", "#" + bgFooter);
+						$(".lastname").css("color","#" + bgFooter);
+					}
+
+					if(footerTxtColor != 1){
+						$(".bottom").css("color", "#" + footerTxtColor);
+					}
+				}
+				if(theme=="theme2"){
+					bgColor = parseSecond("bgColor");
+					txtColor = parseSecond("txtColor");
+					if(bgColor != 1){
+						$(".table-cell").css("background-color", "#" + bgColor);
+					}
+					if(txtColor != 1){
+						$(".table-cell").css("color", "#" + txtColor);
+						$(".lastname").css("color", "#" + txtColor);
+					}
+				}
+
+				width = parseSecond("width");
+				if(width != 1){
+					$(".table").css("width",width+"cm");
+				}
+				
+				height = parseSecond("height");
+				if(height != 1){
+					$(".table").css("height",height+"cm");
+				}
+
+				logo = parseSecond("logo");
+				if(logo != 1 && logo != ""){
+					$(".logo").attr("src", logo);
+				}
 			}
-			if(height != 1){
-				$(".table").css("height",height+"cm");
-			}
-	  	if(logo != 1 && logo != ""){
-	  		$(".logo").attr("src", logo);
-	  	}
-		}
-	
-	</script>
-</head>
-<body>
-	<ul id="list"></ul>
+			
+		</script>
+	</head>
+	<body>
+		<ul id="list"></ul>
 
-	<script id="badge" type="text/x-jsrender">
-		<li>
-			<div class="table">
-				<div class="top table-row">
-					<div class="table-cell">
-						<img src="img/logo.png" class="logo">
-						<div class="type">{{:type}}</div>
+		<script id="badge" type="text/x-jsrender">
+			<li>
+				<div class="table">
+					<div class="top table-row">
+						<div class="table-cell">
+							<img src="img/logo.png" class="logo">
+							<div class="type">{{:type}}</div>
+						</div>
 					</div>
-				</div>
-				<div class="name table-row">
-					<div class="table-cell">
-						<span class="firstname">{{:firstname}}</span>
-						<span class="lastname">{{:lastname}}</span>
+					<div class="name table-row">
+						<div class="table-cell">
+							<span class="firstname">{{:firstname}}</span>
+							<span class="lastname">{{:lastname}}</span>
+						</div>
 					</div>
-				</div>
-				<div class="bottom table-row">
-					<div class="table-cell" style="text-align:right">{{:twitter}}</div>
-				</div>
-			</script>
-		</li>
-	</script>
-</body>
-</html>
+					<div class="bottom table-row">
+						<div class="table-cell" style="text-align:right">{{:twitter}}</div>
+					</div>
+				</script>
+			</li>
+		</script>
+	</body>
+	</html>
