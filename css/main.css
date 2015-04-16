@@ -30,6 +30,7 @@ body{
 	display: table-cell;
   vertical-align: middle;
   padding: .5cm;
+  -webkit-print-color-adjust: exact;
 }
 .form-group.inline{
 	width: 49.5%;
