@@ -16,6 +16,7 @@
       margin: 25px 0;
     }
   </style>
+
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -30,7 +31,7 @@
             </div>
             
             <div class="row">
-
+ 
               <div class="col-md-6">
                 <form>
                   <div class="form-group">
@@ -40,28 +41,28 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">Header BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgHeader">
-                      <input type="text" value="#3a3a3a" class="form-control" name="bgHeader" />
+                      <input type="text" value="#3a3a3a" class="form-control" name="bgHeader" id="bgHeader" />
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Text Header Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="headerTxtColor">
-                    <input type="text" value="#FFFFFF" class="form-control" name="headerTxtColor" />
+                    <input type="text" value="#FFFFFF" class="form-control" name="headerTxtColor" id="headerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Footer BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgFooter">
-                      <input type="text" value="#53d5cf" class="form-control" name="bgFooter"/>
+                      <input type="text" value="#53d5cf" class="form-control" name="bgFooter" id="bgFooter"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Text Footer Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="footerTxtColor">
-                      <input type="text" value="#3a3a3a" class="form-control" name="footerTxtColor" />
+                      <input type="text" value="#3a3a3a" class="form-control" name="footerTxtColor" id="footerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
@@ -152,6 +153,32 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script src="js/bootstrap-colorpicker.js"></script>
         <script src="js/docs.js"></script>
+        <script>
+          function getParam(val) {
+            var result = "1",
+            tmp = [];
+            var items = location.search.substr(1).split("&");
+            for (var index = 0; index < items.length; index++) {
+              tmp = items[index].split("=");
+              if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            }
+            return result;
+          }
+
+          $(document).ready(function(){
+            var p,
+                params = ["logoSrc","bgHeader","spreadsheet"];
+            for (var i = 0; i < params.length ; i++){
+              p = params[i];
+              value = getParam(p);
+              if(value != 1){
+                $("#"+p).val(value);
+              }
+            }
+
+          });
+
+        </script>
         <a href="https://github.com/hhkaos/badge-generator"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-graphite@2x.png" alt="Fork me on GitHub"></a>
       </body>
 
