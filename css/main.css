@@ -9,6 +9,7 @@ body{
 }
 .table-container{
   background-size: cover;
+  -webkit-print-color-adjust: exact;
 }
 
 #list li{
@@ -32,7 +33,7 @@ body{
 .table-cell{
   display: table-cell;
 vertical-align: top;
-padding: 1cm .5cm .5cm 3cm;
+padding: 1cm .75cm .5cm 3cm;
 -webkit-print-color-adjust: exact;
 text-align: right;
 }
