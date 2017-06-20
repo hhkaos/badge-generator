@@ -29,9 +29,9 @@
             <div class="page-header">
               <h1>Badge generator</h1>
             </div>
-            
+
             <div class="row">
- 
+
               <div class="col-md-6">
                 <form>
                   <div class="form-group">
@@ -39,28 +39,32 @@
                     <input type="text" class="form-control" id="logoSrc" placeholder="http://upload.wikimedia.org/wikipedia/commons/7/73/Meetup_Logo_2015.png" name="logo" value="http://hhkaos.github.io/badge-generator/img/logo.png">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Header BG Color</label>
+                    <label>BG image</label>
+                    <input type="text" class="form-control" id="bgSrc" placeholder="http://upload.wikimedia.org/wikipedia/commons/7/73/Meetup_Logo_2015.png" name="bgSrc" value="http://localhost:9095/img/background.png">
+                  </div>
+                  <div class="form-group">
+                    <label>Header BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgHeader">
                       <input type="text" value="#3a3a3a" class="form-control" name="bgHeader" id="bgHeader" />
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Text Header Color</label>
+                    <label>Text Header Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="headerTxtColor">
                     <input type="text" value="#FFFFFF" class="form-control" name="headerTxtColor" id="headerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Footer BG Color</label>
+                    <label>Footer BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgFooter">
                       <input type="text" value="#53d5cf" class="form-control" name="bgFooter" id="bgFooter"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Text Footer Color</label>
+                    <label>Text Footer Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="footerTxtColor">
                       <input type="text" value="#3a3a3a" class="form-control" name="footerTxtColor" id="footerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
@@ -89,22 +93,15 @@
               <article class="col-md-6">
                 <ul id="list">
                   <li style="width:100%">
-                    <div class="table" style="width: 10.5cm;height: 7.5cm; margin:0 auto">
-                      <div class="top bgHeader headerTxtColor table-row">
-                        <div class="table-cell">
-                          <img src="img/logo.png" class="logo">
-                          <div class="type">Ticket type</div>
-                        </div>
-                      </div>
+                    <div class="table table-container" style="width: 10.5cm;height: 7.5cm; margin:0 auto">
+
                       <div class="name table-row">
                         <div class="table-cell">
                           <span class="firstname">Firstname</span>
                           <span class="lastname">Lastname</span>
                         </div>
                       </div>
-                      <div class="bottom bgFooter footerTxtColor table-row">
-                        <div class="table-cell" style="text-align:right">@twitterhandle</div>
-                      </div>
+                      
                     </div>
                   </li>
                 </ul>
@@ -141,7 +138,7 @@
               <div class="col-md-6">
                 <h1 class="text-center ">Video tutorial</h1>
                 <div class="text-center well">
-                  
+
                   <iframe style="width:90%; margin:10px 0;display:inline-block" height="315" src="https://www.youtube.com/embed/z6gyy6Brbns" frameborder="0" allowfullscreen></iframe>
                   <p>Length: 2 min, 17 secs</p>
                 </div>
@@ -155,24 +152,26 @@
         <script src="js/docs.js"></script>
         <script>
           function getParam(val) {
-            var result = "1",
-            tmp = [];
-            var items = location.search.substr(1).split("&");
-            for (var index = 0; index < items.length; index++) {
-              tmp = items[index].split("=");
-              if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
-            }
-            return result;
+            var url = window.location.href;
+            name = val.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return -1;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
           }
 
           $(document).ready(function(){
             var p,
-                params = ["logoSrc","bgHeader","spreadsheet"];
+                params = ["logoSrc","bgSrc","bgHeader","spreadsheet","footerTxtColor","width","height"];
             for (var i = 0; i < params.length ; i++){
               p = params[i];
               value = getParam(p);
-              if(value != 1){
+              //console.log("Param="+p+", Value="+value)
+              if(value != -1){
                 $("#"+p).val(value);
+                $("#"+p).change()
+                console.log("Cambiando ",p);
               }
             }
 

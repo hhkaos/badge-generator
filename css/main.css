@@ -7,12 +7,15 @@ body{
 	margin: 0;
 	padding: 0;
 }
+.table-container{
+  background-size: cover;
+}
 
 #list li{
 	/*width: 10.5cm;
 	height: 7.5cm;*/
 	margin: 1cm;
-	
+
 	position: relative;
 	display: inline-block;
 	font-size: 1.4em;
@@ -27,10 +30,11 @@ body{
 	display: table-row;
 }
 .table-cell{
-	display: table-cell;
-  vertical-align: middle;
-  padding: .5cm;
-  -webkit-print-color-adjust: exact;
+  display: table-cell;
+vertical-align: top;
+padding: 1cm .5cm .5cm 3cm;
+-webkit-print-color-adjust: exact;
+text-align: right;
 }
 .form-group.inline{
 	width: 49.5%;
@@ -47,7 +51,7 @@ body{
 	margin-top: 0px;
 }
 .top{
-	background-color: #3a3a3a;
+	/*background-color: #3a3a3a;*/
 	color: white;
 	-webkit-print-color-adjust: exact;
 
@@ -65,7 +69,7 @@ body{
   width: 84%;
 }
 .bottom{
-	background-color: #53d5cf;
+	/*background-color: #53d5cf;*/
 	color: black;
 	-webkit-print-color-adjust: exact;
 	font-size: .8em;
@@ -77,9 +81,14 @@ body{
 	color: #3A3A3A;
 	margin: .5em .3em;
 }
+.firstname{
+  color:#1e0d3c;
+  font-family: Arial;
+}
 .lastname{
+  font-family: Arial;
 	display: block;
 	font-size: .7em;
-	color: #53D5CF;
+	color: #1e0d3c;
 	font-weight: normal;
 }
