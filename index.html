@@ -16,6 +16,7 @@
       margin: 25px 0;
     }
   </style>
+
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -30,7 +31,7 @@
             </div>
             
             <div class="row">
-
+ 
               <div class="col-md-6">
                 <form>
                   <div class="form-group">
@@ -40,32 +41,41 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">Header BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgHeader">
-                      <input type="text" value="#3a3a3a" class="form-control" name="bgHeader" />
+                      <input type="text" value="#3a3a3a" class="form-control" name="bgHeader" id="bgHeader" />
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Text Header Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="headerTxtColor">
-                    <input type="text" value="#FFFFFF" class="form-control" name="headerTxtColor" />
+                    <input type="text" value="#FFFFFF" class="form-control" name="headerTxtColor" id="headerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Footer BG Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="bgFooter">
-                      <input type="text" value="#53d5cf" class="form-control" name="bgFooter"/>
+                      <input type="text" value="#53d5cf" class="form-control" name="bgFooter" id="bgFooter"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Text Footer Color</label>
                     <div class="input-group colorpicker-component demo demo-auto" data-part="footerTxtColor">
-                      <input type="text" value="#3a3a3a" class="form-control" name="footerTxtColor" />
+                      <input type="text" value="#3a3a3a" class="form-control" name="footerTxtColor" id="footerTxtColor"/>
                       <span class="input-group-addon"><i></i></span>
                     </div>
                   </div>
 
+                  <div class="form-group inline">
+                    <label for="width">Width (cm)</label>
+                    <input type="text" class="form-control" id="width" name="width" placeholder="10.5" value="10.5">
+                  </div>
+
+                  <div class="form-group inline">
+                    <label for="height">Height (cm)</label>
+                    <input type="text" class="form-control" id="height" name="height" placeholder="7.5" value="7.5">
+                  </div>
 
                   <div class="form-group">
                     <label for="spreadsheet">Spreadsheet ID</label>
@@ -79,16 +89,22 @@
               <article class="col-md-6">
                 <ul id="list">
                   <li style="width:100%">
-                    <div class="top bgHeader headerTxtColor">
-                      <img src="img/logo.png" class="logo">
-                      <div class="right">Ticket type</div>
-                    </div>
-                    <p class="name">
-                      <span class="firstname">Firstname</span>
-                      <span class="lastname">Lastname</span>
-                    </p>
-                    <div class="bottom bgFooter footerTxtColor">
-                      <div class="right">@twitterhandle</div>
+                    <div class="table" style="width: 10.5cm;height: 7.5cm; margin:0 auto">
+                      <div class="top bgHeader headerTxtColor table-row">
+                        <div class="table-cell">
+                          <img src="img/logo.png" class="logo">
+                          <div class="type">Ticket type</div>
+                        </div>
+                      </div>
+                      <div class="name table-row">
+                        <div class="table-cell">
+                          <span class="firstname">Firstname</span>
+                          <span class="lastname">Lastname</span>
+                        </div>
+                      </div>
+                      <div class="bottom bgFooter footerTxtColor table-row">
+                        <div class="table-cell" style="text-align:right">@twitterhandle</div>
+                      </div>
                     </div>
                   </li>
                 </ul>
@@ -97,26 +113,38 @@
                   <div class="clearfix">
                     <a href="#" id="pdf" type="submit" class="btn btn-default pull-right" target="_blank">Generate PDF</a>
                   </div>
-                  <!--<p><hr><a href="" id="pdf" target="_blank" style="display:none">Open document</a></p>-->
                 </div>
               </article>
             </div>
             <div class="row" style="margin-bottom: 5em">
 
-              <div class="col-md-12">
-                <h1>Where do I get the Spreadsheet ID?</h1>
+              <div class="col-md-6">
+                <h1>What is the Spreadsheet ID?</h1>
                 <ol class="task-list">
                   <li><p>Open <a href="https://docs.google.com/spreadsheets/d/13J7bCeY26AaUGgW_2gOyLH5aulZFKQM_zwxMhfUJTGQ/edit?usp=sharing">this spreadsheet</a></p></li>
                   <li><p>File -&gt; Make a copy</p></li>
                   <li><p>Fill the spreadsheet with real data. It should look like this:<br><br>
-                    <a href="https://github.com/hhkaos/badge-generator/blob/gh-pages/img/excel.png" target="_blank"><img src="https://github.com/hhkaos/badge-generator/raw/gh-pages/img/excel.png" style="max-width:50%;"></a></p></li>
-                    <li><p>Next step is make this file Public; File -&gt; Publish to the web -&gt; Publish<br><br>
-                    <a href="https://github.com/hhkaos/badge-generator/blob/gh-pages/img/publish.png" target="_blank"><img src="https://github.com/hhkaos/badge-generator/raw/gh-pages/img/publish.png" style="max-width:50%;"></a></p></li>
-                    </p></li>
-                    <li><p>Extract the Spreadsheet ID from the URL, for example if your URL is this one:
-                      <a href="https://docs.google.com/spreadsheets/d/13J7bCeY26AaUGgW_2gOyLH5aulZFKQM_zwxMhfUJTGQ/pubhtml">https://docs.google.com/spreadsheets/d/13J7bCeY26AaUGgW_2gOyLH5aulZFKQM_zwxMhfUJTGQ/pubhtml</a> the id is <strong>13J7bCeY26AaUGgW_2gOyLH5aulZFKQM_zwxMhfUJTGQ</strong></p></li>
-                    <li>That's all, now you have it, place it inside the "Spreadsheet ID" input file</li>
-                      </ol>
+                    <div class="text-center">
+                      <a href="https://github.com/hhkaos/badge-generator/blob/gh-pages/img/excel.png" target="_blank"><img src="https://github.com/hhkaos/badge-generator/raw/gh-pages/img/excel.png" style="max-width:200px;"></a></p>
+                    </div>
+                  </li>
+                  <li><p>Next step is make this file Public; File -&gt; Publish to the web -&gt; Publish<br><br>
+                  <div class="text-center">
+                    <a href="https://github.com/hhkaos/badge-generator/blob/gh-pages/img/publish.png" target="_blank"><img src="https://github.com/hhkaos/badge-generator/raw/gh-pages/img/publish.png" style="max-width:200px"></a>
+                  </div>
+                  </p></li>
+                  </p></li>
+                  <li><p>Extract the Spreadsheet ID from the URL. It should look like this: <strong>13J7bCeY26AaUGgW_2gOyLH5aulZFKQM_zwxMhfUJTGQ</strong></p></li>
+                  <li>That's all, now you have it, place it inside the "Spreadsheet ID" input file</li>
+                </ol>
+              </div>
+              <div class="col-md-6">
+                <h1 class="text-center ">Video tutorial</h1>
+                <div class="text-center well">
+                  
+                  <iframe style="width:90%; margin:10px 0;display:inline-block" height="315" src="https://www.youtube.com/embed/z6gyy6Brbns" frameborder="0" allowfullscreen></iframe>
+                  <p>Length: 2 min, 17 secs</p>
+                </div>
               </div>
             </div>
           </section>
@@ -125,6 +153,33 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
         <script src="js/bootstrap-colorpicker.js"></script>
         <script src="js/docs.js"></script>
+        <script>
+          function getParam(val) {
+            var result = "1",
+            tmp = [];
+            var items = location.search.substr(1).split("&");
+            for (var index = 0; index < items.length; index++) {
+              tmp = items[index].split("=");
+              if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            }
+            return result;
+          }
+
+          $(document).ready(function(){
+            var p,
+                params = ["logoSrc","bgHeader","spreadsheet"];
+            for (var i = 0; i < params.length ; i++){
+              p = params[i];
+              value = getParam(p);
+              if(value != 1){
+                $("#"+p).val(value);
+              }
+            }
+
+          });
+
+        </script>
+        <a href="https://github.com/hhkaos/badge-generator"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-graphite@2x.png" alt="Fork me on GitHub"></a>
       </body>
 
       </html>

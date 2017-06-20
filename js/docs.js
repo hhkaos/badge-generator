@@ -10,6 +10,9 @@ $(function() {
 
             if(part == "bgHeader" || part == "bgFooter"){
                 $("."+part).css("background-color", color);
+                if(part == "bgFooter"){
+                    $(".lastname").css("color", color);
+                }
             }else{
                 $("."+part).css("color", color);
             }
@@ -26,6 +29,12 @@ $(function() {
         console.log(params);
         
         $(this).attr("href","bagde-generator.html?"+params);
+    });
+    $("#width").change(function(){
+        $(".table").css("width",$(this).val()+"cm");
+    });
+    $("#height").change(function(){
+        $(".table").css("height",$(this).val()+"cm");
     });
 
 

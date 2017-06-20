@@ -1,27 +1,43 @@
 body{
 	font-family: 'Montserrat', sans-serif;
+	margin: 0;
 }
 #list{
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
+
 #list li{
-	width: 45%;
-	margin: 2.3% 2.5%;
-	float: left;
-	padding-bottom: 55px;
+	/*width: 10.5cm;
+	height: 7.5cm;*/
+	margin: 1cm;
+	
 	position: relative;
+	display: inline-block;
+	font-size: 1.4em;
 }
-#list li > div{
-	padding: 1em;
+#list li:nth-child(even){
+	page-break-after: always;
 }
-#list li > div.bottom{
-	position:absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+.table{
+	display: table;
 }
+.table-row{
+	display: table-row;
+}
+.table-cell{
+	display: table-cell;
+  vertical-align: middle;
+  padding: .5cm;
+  -webkit-print-color-adjust: exact;
+}
+.form-group.inline{
+	width: 49.5%;
+	display: inline-block;
+}
+
+
 #list li div .right{
 	float:right;
 	margin-top: 9px;
@@ -34,16 +50,25 @@ body{
 	background-color: #3a3a3a;
 	color: white;
 	-webkit-print-color-adjust: exact;
+
+}
+.top, .bottom{
+	height:25%;
 }
 .top img{
-	width: 35px;
+	width: 14%;
+  vertical-align: middle;
+}
+.type{
+	display: inline-block;
+  text-align: right;
+  width: 84%;
 }
 .bottom{
 	background-color: #53d5cf;
 	color: black;
 	-webkit-print-color-adjust: exact;
 	font-size: .8em;
-	/*height: 15px;*/
 }
 .name{
 	font-size: 1.8em;
